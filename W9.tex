@@ -1,0 +1,154 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\title{Stats Learning Lecture Week 9}
+
+\begin{document}
+
+\section{Week 9 - Notes \textbf{Jess}}
+
+	Regular classifiers tend to do poorly on imbalanced data because they focus on minimizing the overall error which neglects the minority class that one is trying to properly predict. Thus when these methods are used, the accuracy may be high, but the minority class tends to be misclassified more than the majority class. When considering disease diagnostic data in particular, the preferred classification gives more weight to properly predicting the disease than not.%~\parencite{Sun2007}. 
+
+	In general, imbalanced data can be described a few ways: intrinsic imbalance, extrinsic imbalance, relative imbalance, or absolute rarity. Intrinsically imbalanced data is data that has class imbalance due to the nature of the data. On the other hand, extrinsically imbalanced data is data that is not actually imbalanced but appears to be so because where/when the data was gathered makes the data imbalanced. Relative imbalances mean that even if more data is added, the proportional imbalance remains the same. Similarly, absolute rarity occurs when the minority class is limited and/or rare to actually occur. In these cases, where the minority class is truly rare and hard to record, subconcepts of the minority class become much harder to capture which results in making classification that much harder. Subconcepts exist when a class can be broken down into smaller more distinct sections which are called subconcepts. If these subconcepts actually exist within the minority class, then another type of imbalance called within-class imbalance is present. This is commonly created by noise which makes determining these subconcepts difficult to do. Furthermore, things like data complexity and small sample sizes makes each type of imbalance that much harder to predict.%~\parencite{Chawla2004}.
+    
+    
+\subsection{Over-Sampling and Under Sampling}
+    For heavily imbalanced data, there are two general methods for dealing with the imbalance. The cost sensitive learning approach deals with giving a high cost to misclassifying the minority class that you’re trying to predict. In this way, the goal becomes minimizing the overall cost by minimizing the cost of misclassifying the minority class. The other approach is to use a sampling technique.% ~\parencite{Chen2001}.
+
+
+Randomly over-sampling the minority class consists of just two steps:
+
+\begin{enumerate}
+\item Determine the difference in size between the majority class, $S_{maj}$ and the minority class, $S_{min}$
+$$d=|S_{maj}|-|S_{min}|$$
+\item Bootstrap a sample of size $d$, with replacement, from the minority class. This sample is then added to the minority class to increase the size of the class to be equal to the size of the majority class.
+\end{enumerate}
+
+Randomly under-sampling the majority class is just as straightforward as over-sampling.
+
+\begin{enumerate}
+\item Determine the difference in size between the majority class, $S_{maj}$ and the minority class, $S_{min}$
+$$d=|S_{maj}|-|S_{min}|$$
+\item Randomly select $d$ observations in the majority class and remove them. This way the size of the majority class is reduced to be equal to the size of the minority class.
+\end{enumerate}    
+    
+    
+    While resampling at the data level is popular, this often comes with numerous problems. These techniques try to make each class have equal prior probabilities even though the optimal distribution is not actually known. Furthermore, if the resampling is ineffective or not done properly, then information about the majority class can be lost and the minority class being resampled so often could produce overfitting. There is an extra learning cost associated with processing the data for resampling that is usually unavoidable.%~\parencite{Sun2007}.  
+    
+	Sampling methods require that you modify the data in order to created a balanced distribution before modeling. This is typically done when modeling with the imbalance is difficult, which may not always be true. The most common methods are to either down-sample the majority class (use fewer observations from the majority class to make the size of the class smaller) or to over-sample the minority class (reuse the same observations from the minority class to make the class size larger). By increasing the class size of the minority class, you increase their weight but do not increase information about the class. Thus while random oversampling appends more data to the original dataset and can lead to overfitting, random under sampling removes data and thus removes information. A third sampling technique called SMOTE, synthetic minority over-sampling technique, combines over-sampling and down-sampling but instead of bootstrapping, creates synthetic examples of the minority class. In general, prior research has shown that for trees, coercing the data to have equal class priors is effective and that over-sampling does worse than under-sampling. In both cases, the testing error tends to be far worse than the training error.%~\parencite{Chawla2004}~\parencite{Chen2001}. 
+    Empirically, both under-sampling and over-sampling have shown to improve the accuracy of the minority class .%~\parencite{Hernandez2013}.
+ 
+\subsection{SMOTE}
+Synthetic minority oversampling technique (SMOTE) increases the size of the minority class by creating synthetic data from the existing data based on the similarities between minority class observations. For non-continuous variables, this is done by taking the majority vote of the observation vector being considered and its k nearest neighbors. This majority vote is the value given to the new synthetic sample created for the minority class. For continuous variables the difference between the observation being considered and its k nearest neighbor is found and then randomly multiplied by a number between 0 and 1. This product is then added to the original observation's variable amount to produce the new synthetic amount. Although SMOTE is powerful, it tends to over generalize and create large variance. Part of this problem is due to SMOTE creating new synthetic points without consideration to overlapping between the classes. Thus the lines that separate one class from another become blurred and hard to pinpoint.%~\parencite{Chawla2004}. 
+
+$$x_{new}=x_i+(x_i^{KNN}-x_i)\times\delta, \delta\in[0,1]$$
+
+One of the major advantages to using SMOTE is that the synthetic minority observations created cover a region that the data does not normally reflect. By creating these new minority observations, classifiers are better able to predict when observations belong in the minority class
+%\parencite{Chawla2003SMOTEBoost:Boosting}\parencite{Chawla2004}.
+
+\subsubsection{KNN Refresher}
+In KNN, classes are assigned to points based on what their nearest neighbors classes are. KNN is flexible in that you can choose what distance measure to use and different distance measures can produce different predictive results. KNN can be modified with weights when dealing with class imbalance. In this way, observations from the minority class are weighted more heavily than those from the majority class in an attempt to more correctly predict when an observation is from the minority class. The general algorithm is:
+
+\begin{itemize}
+\item given data $\mathcal{D}=\{(x_1,Y_1),\dots,(x_n,Y_n)\}$ where $x_i\in\mathcal{X}^p, Y_i\in\{1,\dots,c\}$
+\item First decide on a distance measure to use and k, the number of neighbors to consider
+\item For point $x^*$, compute the distance between it and each point
+\item Rank all the distances in increasing order
+\item Determine $x^*$'s class via the most frequent label in $x^*$s k nearest neighbors
+\end{itemize} 
+    SMOTE has some very nice theoretical properties when dealing with high dimensional data. While SMOTE adds data to the minority class, the overall expected value of the minority class is not changed and the variability is reduced. Furthermore, there is no correlation introduced between variables, however some is introduced between observations. Since SMOTE modifies the Euclidean distance between test samples and the minority class, the test samples tend to be more similar to the SMOTE samples. Lusa concludes that SMOTE reduces bias towards the majority class in KNN, SVM, CART, and random forest.% ~\parencite{Lusa2013SMOTEData}.
+
+\subsection{Borderline SMOTE}
+
+Borderline SMOTE is an extension of SMOTE that focuses on creating synthetic points that are considered to be in the 'danger' set. For the most part, the algorithm follows SMOTE.
+
+    Borderline-SMOTE works like SMOTE, except that it determines ‘danger’ points which are points on the borders that can be easily misclassified. The algorithm takes these points and creates synthetic observations for the minority class to clean up the border. Empirically, borderline-SMOTE tends to produce high true positive rates and F-values.% ~\parencite{Han2005Borderline-SMOTEIn}. 
+
+\begin{enumerate}
+\item Determine the set of k nearest neighbors, $S_{NN}$, for each observation in the minority class, $x_i\in S_{min}$
+\item For each $x_i$ considered, determine the number of nearest neighbors that belong to the majority class, $|S_{NN}\cap S_{maj}|$
+\item Select observations such that:
+$$\frac{m}{2}\leq|S_{NN}\cap S_{maj}|<m$$
+These observations are considered to be in the danger set since the observation, $x_i$, is in the minority class but has more nearest neighbors in the majority class than minority class neighbors and are thus more likely to be misclassified. However if all of the nearest neighbors are from the majority class, then the observation is considered noise and not to create synthetic observations.
+\item These observations are then put through the normal SMOTE algorithm to create synthetic points that exist only along the border of the minority and majority classes. 
+\end{enumerate}
+%\parencite{Chawla2004}  
+  
+\subsection{ADASYN}
+
+ On the other hand, ADASYN (adaptive synthetic) uses a density distribution and changes the weight of different minority examples to make up for the imbalance.%~\parencite{Chawla2004}.
+    Empirically, ADASYN improves the accuracy of both the minority and the majority classes without a preference for either one.% ~\parencite{He2008ADASYN:Learning}.
+
+ADASYN (adaptive synthetic sampling) takes a similar approach to borderline SMOTE in that it attempts to determine which observations need help in being predicted properly. 
+\begin{enumerate}
+\item First ADASYN determines how many observations need to synthetically created by multiplying some number from 0 to 1 (this is a parameter that can be adjusted in cross validation) by the difference between the size of the majority class and the minority class.
+$$G=(|S_{maj}|-|S_{min}|)\times\beta, \beta\in[0,1]$$
+\item Next, the k nearest neighbors of every single observation($x_i$) in the minority class are found and the ratio $\tau_i$ is calculated by dividing the number of k nearest neighbors($\delta_i$) that belong to the majority class by the number of neighbors considered ($K$) and then by diving that quotient by $Z$ which is a normalizing constant. The normalizing constant ensures that $\sum\tau_i=1$ and is therefore a distribution function.
+ $$\tau_i=\frac{\delta_i/K}{Z}, i=1,\dots,|S_{min}|$$
+\item Now the number of synthetic samples that need to be created for each minority class observation is determined by finding the product of $G$ and $\tau_i$
+$$g_i=G\times\tau_i$$
+\item Finally, $g_i$ synthetic observations are created via regular SMOTE for each $x_i\in S_{min}$.
+\end{enumerate}
+%\parencite{Chawla2004}
+
+\subsection{Novelty Detection and One Class SVM}
+
+In novelty detection, the objective is to properly recognize when some data is different from the rest of the data. Typically, this method is used when one class has overwhelmingly more observations than another class, thus making it the majority class. The training set data only comes from the reference class, which should just be the majority class. The test data is then a mixture of both the minority and majority class. We assume that the minority class is in low density regions and since everything in the minority class is considered an outlier, both $\bar{x}=(\bar{x}_1,\dots,\bar{x}_p)^T$(the vector of sample means of each predictor) and $s=\frac{1}{n-1}\sum^n_{i=1}(x_i-\bar{x})(x_i-\bar{x})^T$(the vector of sample standard deviations of each predictor) are heavily influenced. Part of novelty detection involves density estimation of the one class which is normally difficult to do because covariance must be estimated and if the covariance is non-homogeneous then this estimation becomes very complicated. The basic steps of density estimation are:
+\begin{itemize}
+\item for $x_1,x_2,\dots,x_n\stackrel{iid}{\sim}f_x(x,\theta)$
+\item Estimate the density function $f_x(x;\theta)$ using $\hat{f}_x(x;\theta)$
+\item Get the contours,$\hat{h}(x)$, of $f_x(x;\theta)$
+\item Set $\tau$, the threshold of wrong predictions of the rare class
+\item Define reference, boundary, and novelty observations as the following
+\begin{itemize}
+\item reference= $C(\tau)=\{x\in\mathcal{X}, \hat{h}(x)<\tau\}$
+\item boundary= $B(\tau)=\{x\in\mathcal{X}, \hat{h}(x)=\tau\}$
+\item novelty= $N(\tau)=\{x\in\mathcal{X}, \hat{h}(x)>\tau\}$
+\end{itemize}
+\end{itemize}
+
+By using $\phi(x_i)$ instead (where $\phi:\mathcal{X}\rightarrow\mathcal{F}$ brings values of $\mathcal{X}$ into some higher dimension $\mathcal{F}$) in the density, more complicated setups where the boundary is not spherical can be handled. Instead of estimating a covariance, kernels could be used instead which would make the algorithm essentially like one-class SVM. 
+
+ 	Other methods for dealing with imbalanced data are numerous. Cost-sensitive decision trees that are not pruned can be used to easily see what would determine a class. On the other hand, cost-sensitive neural networks have also been used when the problem is too complex for other methods. However neural networks are very complex and computationally expensive, thus they will not be considered. Kernel-based methods are also numerous for dealing with imbalanced data such as kernel SVM. Additional methods include one-class SVM and novelty detection which both focus on learning the minority class instead of trying to learn both classes at once.%~\parencite{Chawla2004}.  
+
+In one-class SVM, the model is trained only on the minority class and then tested on both the minority and majority class. By training only on the minority class, the algorithm aims to learn only the minority class so that when it is given both the majority and minority classes from the test set it can more accurately find minority class observations.%\parencite{Pimentel2014ADetection}.
+
+
+\section{Week 9 - Homeworks}
+compare over, under, smote in trees to balanced and weighted discuss outcomes and defend what you think is best method
+more matching to math def
+
+QUESTION TO DISCUSS FRIDAY- Should ADASYN and BLSMOTE stay in notes? 
+
+\section{Week 9 - AIOS}
+gif of hackers where they say hack the planet
+\end{document}

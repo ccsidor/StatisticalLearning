@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{tikz}
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usetikzlibrary{matrix,fit}
+
+% commands
+\newcommand{\tikzmark}[2]{
+    \tikz[overlay,remember picture,baseline] 
+    \node[anchor=base] (#1) {$#2$};
+}
+
+\tikzset{
+  highlight/.style={triangle,rounded corners,fill=red!15,draw,fill opacity=0.5,thick,inner sep=0pt}
+}
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\title{Stats Learning Lecture Week 2}
+
+\begin{document}
+
+\section{Notes}
+
+Course notes are in extra files in folder as R Markdown code file, R PDF output, and Python notebook.
+
+\section{Homework Problems}
+        \begin{itemize} 
+            \item [\textbf{Repetition}]
+            \item matrix computation in R/Python - fill in their answer
+        \end{itemize}
+        \begin{itemize} 
+            \item [\textbf{Extension}]
+            \item have students enhance specific colors on images (telling them how to handle the dim) -give their code \& output, Yang to check
+            \item implement volume control on a song -give their code \& output, Yang to check
+        \end{itemize}
+        
+\section{AIOs}
+        \begin{itemize}
+            \item pop out music player for sound lecture
+        \end{itemize} 
+\end{document}
