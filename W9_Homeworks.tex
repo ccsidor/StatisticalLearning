@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\begin{document}
+\title{Homework Week 9}
+
+\maketitle
+
+\section{Exercise 1}
+
+Consider the Pima Indian data set. Using a stratified 70\% training set/30\% test split, 50 replications, and calculating the Fmeasure and AUC, split your data do the following:
+
+\begin{itemize}
+\item Run random forest
+\item Run random forest with an over sampled training set
+\item Run random forest with an under sampled training set
+\item Run random forest with a SMOTE version of the training set
+\item Generate comparative boxplots showing the test errors for the different sampling techniques.
+\item Compare the techniques and argue which is best and why.
+
+\end{itemize}
+
+\textbf{What to hand in: Script to do the above, boxplot output, written argument.}
+
+\end{document}

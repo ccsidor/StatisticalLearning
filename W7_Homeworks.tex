@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\begin{document}
+\title{Homework Week 7}
+
+\maketitle
+
+\section{Exercise 1}
+Consider the ORL-2 data set. Again, there are 400 images of faces where each image has 648 dimensions (28 rows and 23 columns). Create a script to do the following:
+\begin{itemize}
+\item Find the "optimal" rank of NMF. Write up how you determined the number of optimal ranks and show the scree plot. Argue why this could be considered optimal.
+\item Using the optimal NMF rank, form the projected data set.
+\item Find the "optimal" number of components of PCA. Write up how you determined the number of optimal ranks and show the scree plot and state total proportion of variance captured by this number of components. Argue why this could be considered optimal.
+\item Using your optimal number of components, form the PCA projected data set.
+\item Using your knowledge and script from other classes and this class, Use 50 replications and a 60\%-training/40\%-test data split to compute the average
+test error yielded by the 1NN algorithm under the two feature extraction schemes. The goal is facial recognition, so be sure to assign a facial index indicating which face (1 thru 40) that each face belongs to.
+\item Use R = 50 replications and a 60\%-training/40\%-test data split to compute the average test error yielded by the Random forest algorithm with 50 trees under the two feature extraction schemes. Again, the goal is facial recognition, so be sure to assign a facial index indicating which face (1 thru 40) that each face belongs to.
+\item Comment on any patterns that emerge, differences between 1NN and random forest, and any differences the PCA and NMF data sets created. Show and use comparison boxplots to back up your arguments.
+\end{itemize}
+
+\textbf{What to hand in: Script to do the above, scree plot of NMF ranks, scree plot of PCA, PCA components total variance captured, sentences stating the optimal ranks and components, arguments for these numbers being optimal, boxplot comparisons and arguments about differences and patterns that may have emerged. }
+
+
+\end{document}
+

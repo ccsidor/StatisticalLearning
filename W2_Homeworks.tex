@@ -1,0 +1,64 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\begin{document}
+\title{Homework Week 2}
+
+\maketitle
+
+\section{Exercise 1}
+Consider the ORL-2 data set. There are 400 images of faces where each image has 648 dimensions (28 rows and 23 columns). Create a script to do the following:
+\begin{itemize}
+\item Select 9 faces at random (using a uniform distribution). 
+\item Create code to evenly divide up each image into a 4 by 4 cross section so that the image consists of 16 equally large chunks total (hint: consider each image as a separate matrix, this would be like creating 16 partitions of that image matrix)
+\item Using a uniform distribution, randomly select a chunk of the image
+\item Randomly paint the chunk either black or white. This can be accomplished like flipping a coin or rolling a die where heads or evens are white and tails or odds are black.
+\end{itemize}
+
+\textbf{What to hand in: Script to do the above and an output of the 9 painted faces. }
+
+
+\section{Exercise 2}
+Now consider the 10 audio tracks of Crosby howling. Each track is 20 seconds and consists of Crosby howling while Jessica says 'Wow' very loudly. Create a script for the following:
+
+\begin{itemize}
+\item Read in each .wav file to R properly
+\item Store all tracks into one matrix (truncating if necessary to make all tracks equal length)
+\item Create code to evenly divide up each sound clip into 5 chunks of equal length.
+\item Uniformly select one chunk per sound clip.
+\item Again like flipping a coin, either replace the chunk with silence or constant loudness.
+\item Compute the distance matrix of the sound matrix using your preferred distance measure, display a visual of the distance matrix, and comment on the peaks and lows.
+\end{itemize}
+
+\textbf{What to hand in: Script to do the above, distance matrix, visual distance matrix output, comments on distance matrix meaning.}
+
+\end{document}

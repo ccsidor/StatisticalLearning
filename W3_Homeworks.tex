@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\begin{document}
+\title{Homework Week 3}
+
+\maketitle
+
+\section{Exercise 1}
+
+Consider how the different ensembles (bagging, boosting, and random subspace learning) work. Using the Ionosphere data set from the mlbench package, 50 replications, and a 60\%-training/40\%-test data split to compute the average test error, create a script for the following:
+
+\begin{itemize}
+\item Run regular logistic regression
+\item Run boosted logistic regression
+\item Run bagged logistic regression
+\item Run RSSL logistic regression
+\item Generate comparative boxplots showing the test errors for logistic regression  the three ensemble versions (total of 4 boxplots).
+\item Compare the ensembles and argue which is best and why.
+\end{itemize}
+
+\textbf{What to hand in: Script to do the above, boxplot output, written argument.}
+
+\section{Exercise 2}
+
+Compare and contrast how the regular logistic regression outcome would change as you change the loss function for the tic tac toe data set. Consider the accuracy, specificity, sensitivity, Fmeasure, AUC, and geometric mean.
+
+\textbf{What to hand in: Written discussion talking about how and why each loss function gives different results, why/when you would consider each as the proper loss function, and any possible tables or graphs for your argument support.}
+
+\end{document}
