@@ -1,0 +1,244 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% packages
+\usepackage{amsmath, amsfonts}
+\usepackage{graphicx, multicol}
+\usepackage{textgreek,mathrsfs,bbm,relsize,multirow,float}
+\usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
+\usepackage[table,xcdraw]{xcolor} % clashes with tikz package
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+
+\newcounter{matchleft}
+\newcounter{matchright}
+
+\newenvironment{matchtabular}{%
+  \setcounter{matchleft}{0}%
+  \setcounter{matchright}{0}%
+  \tabularx{\textwidth}{%
+    >{\leavevmode\hbox to 1.5em{\stepcounter{matchleft}\arabic{matchleft}.}}X%
+    >{\leavevmode\hbox to 1.5em{\stepcounter{matchright}\alph{matchright})}}X%
+    }%
+}{\endtabularx}
+
+\newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
+%% commands
+\newcommand{\xbar}{\mbox{\larger$\bar{x}$}}
+\renewcommand{\baselinestretch}{1.5} %%1.5 spacing
+\newcommand{\textfrc}[1]{{\frcseries#1}}
+\newcommand{\T}{\begin{itemize}\item[] \begin{center} 		\textbf{TRUE} FALSE \end{center}\end{itemize}}
+\newcommand{\F}{\begin{itemize}\item[] \begin{center} TRUE \textbf{FALSE} \end{center}\end{itemize}}
+% commands
+
+\newenvironment{sbmatrix}[1]
+ {\def\mysubscript{#1}\mathop\bgroup\begin{bmatrix}}
+ {\end{bmatrix}\egroup_{\textstyle\mathstrut\mysubscript}}
+ 
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\begin{document}
+\title{Matching and T/F Homeworks}
+
+\section{Week 1}
+\subsection{Matching}
+
+\begin{matchtabular}
+$3\times2$ Matrix & $\begin{bmatrix}1&2\\3&4\\6&1 \end{bmatrix}$ \vspace{6pt}\\ 
+Square Matrix & $\begin{bmatrix}1&1\\5&7 \end{bmatrix}$ \vspace{6pt}\\ 
+$2\times3$ Matrix & $\begin{bmatrix}1&6&3\\4&6&1 \end{bmatrix}$ \vspace{6pt}\\
+Vector & $\begin{bmatrix}1&2&7\\ \end{bmatrix}$ \\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item When viewing data as a matrix, columns usually stand for individuals, or observations, and rows reflect attributes about these observations. \F
+\item When writing the dimensions of a matrix, we write that a matrix consisting of $n$ rows by $p$ columns is: $n\times p$ \T
+\item When you have data that isn't scaled the same way, it is prudent to standardize the data. \T
+\item If you can get the identity matrix by multiply a matrix with it's inverse, then the matrix is invertible. \T
+\item If a matrix's determinant is equal to 0, then that matrix is invertible. \F
+\end{enumerate}
+
+\newpage
+\section{Week 2}
+\subsection{Matching}
+
+\begin{matchtabular}
+ C \%*\% D & R- matrix multiplication\\ 
+ np.dot(C,D) & Python- matrix multiplication\\ 
+ solve(K) & R- matrix inverse\\
+ numpy.linalg.inv(K) & Python- matrix inverse\\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item A determinant cannot be negative. \F
+\item You can only transpose square matrices. \F
+\item You can only find the determinant of square matrices. \T
+\item Individual images are read in as vectors, not matrices. \F
+\item Individual sound clips are read in as vectors, not matrices. \T
+\end{enumerate}
+
+
+\newpage
+\section{Week 3}
+\subsection{Matching}
+
+\begin{matchtabular}
+AIC & $2p+n\text{log}\big(\frac{RSS}{n}\big)$\\ 
+BIC & $p\text{log}(n+n\text{log}\big(\frac{RSS}{n}\big)$\\ 
+TPR & $\frac{TP}{TP+FN}$\\
+FPR & $\frac{FP}{FP+TN}$\\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item Bagging is an extension of bootstrapping. \T
+\item Bagging is an extension of RSSL. \F
+\item The choice of metric is unimportant since they all tell the same information. \F
+\item The F-measure gives the harmonic mean of sensitivity and accuracy. \F
+\item Cross validation is used when creating a model to ensure that a model is created that is accurate
+without over-fitting. \T
+\end{enumerate}
+
+\newpage
+\section{Week 4}
+\subsection{Matching}
+
+\begin{matchtabular}
+L2 Norm & Euclidean Distance\\ 
+L1 Norm & Manhattan Distance\\ 
+Gaussian kernel & $\text{exp}\big(\frac{-||x_i-x_j||^2}{\sigma^2}\big)$\\
+Laplace kernel & $\text{exp}\big(\frac{-||x_i-x_j||}{\sigma}\big)$ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item The Pearson kernel calculates the value of Chi-square with 2 degrees of freedom. \F
+\item The Cosine kernel emphasizes the direction rather than magnitude \T
+\item The Minkowski distance is a generalized metric based on the two initial cases of the Manhattan
+and Euclidean distances. \T
+\item When finding the Chi Squared kernel for binary data, the value of Chi Squared, $\chi^2$, uses 2 degrees of freedom since there's 2 possible values. \F
+\item You cannot find the distance between two binary vectors. \F
+\end{enumerate}
+
+\newpage
+\section{Week 5}
+\subsection{Matching}
+
+\begin{matchtabular}
+Trees & a single hierarchy of if/else questions that eventually lead to a decision\\ 
+Oblique Random Forest & usually performs better than regular Random Forest when the data has a large number of attributes that are important\\ 
+Balanced Random Forest & use the same number of minor and major class observations\\
+Weighted Random Forest & force the minor class
+observations to be equally important to the creation of the model as the major class observations\\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item The trees algorithm can only be used for classification. \F
+\item Random Forest starts by drawing a bootstrapped sample of the data for each tree. \T
+\item When running Random Forest, the numerous trees created are not pruned. \T
+\item Oblique Random Forest uses all of the variables in the data instead of just a subset. \T
+\item In balanced Random Forest, it's the bootstrapped sample of data is drawn without replacement. \F
+\end{enumerate}
+
+\newpage
+\section{Week 6}
+\subsection{Matching}
+
+\begin{matchtabular}
+LDA & common covariance matrix for each grouping\\ 
+QDA & different covariance matrices for each grouping\\ 
+RDA & can handle common \& different covariance matrices for each group\\
+SVM & covariance matrix structure of groupings not directly relevant to algorithm\\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item Kernel SVM requires you to directly compute $x^Tx$ \F
+\item Kernel SVM is solved using quadratic programming \T
+\item SVM does not require you to impute the data \F
+\item LDA is robust when the assumption of equal variances for the groupings is broken. \F
+\item RDA is a compromise of LDA and QDA. \T
+\end{enumerate}
+
+\newpage
+\section{Week 7}
+\subsection{Matching}
+
+\begin{matchtabular}
+PCA & goal is to explain as much variation in data as possible\\ 
+NMF & goal is to produce only positive components\\ 
+Dimensionality Reduction & general goal is to reduce the number of attributes in a dataset\\
+SVD & input matrix must be square \\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item NMF components are easier to interpret than PCA components. \T
+\item The components of PCA should be uncorrelated. \T
+\item If your data is categorical, then you cannot use any version of PCA. \F
+\item SVD is a generalization of eigenvalue decomposition. \T
+\item SVD is used when doing PCA. \T
+\end{enumerate}
+
+\newpage
+\section{Week 8}
+\subsection{Matching}
+
+\begin{matchtabular}
+Feed-Forward Network & nodes only send signals in one direction\\ 
+Recurrent Neural Networks & allow for loops and features like memory kernels\\ 
+Rectified Linear Unit & activation function\\
+Learning Rate & controls the size of adjustment in back-propagation\\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item A Perceptron produces numerous binary outputs. \F
+\item Neural Nets can be used for both classification and regression purposes. \T
+\item Sigmoid Neurons have the major weakness of large changes in outputs due to small changes in inputs due to them only outputting binary values\F
+\item Image transference can be used to transfer the art style of one photo or picture onto another. \T
+\item There's only one method used to optimize neural nets. \F
+\end{enumerate}
+
+\newpage
+\section{Week 9}
+\subsection{Matching}
+
+\begin{matchtabular}
+Over-Sampling & increase the size of the minority class to be equal to the size of the majority class\\ 
+Under-Sampling & majority class is reduced to be equal to the size of the minority class\\ 
+ADASYN & extension of SMOTE that uses a density distribution\\
+Borderline-SMOTE & extension of SMOTE that creates synthetic points from a 'danger' set of points \\ 
+\end{matchtabular}
+
+\subsection{True/False}
+\begin{enumerate}
+\item If over-sampling the data does not work, then under-sampling the data will work instead. \F
+\item The goal of novelty detection is to detect when some data is different than the rest. \T
+\item One-class SVM is trained by giving the algorithm only the minority class to learn. \T
+\item Intrinsically imbalanced data refers to data that is imbalanced due to the nature of the data from the minority class being rare like when classifying if patients have brain tumors (rare) or not (common).  \T
+\item By increasing the size of your data, you can always get around the imbalanced data problem. \F
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+\end{document}
