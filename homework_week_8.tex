@@ -1,0 +1,58 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage[verbose]{wrapfig}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+\usepackage[square, comma, sort&compress]{natbib}
+\usepackage{url}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\pagestyle{plain}
+\pagenumbering{arabic}
+\usepackage[font=small,labelformat=empty,labelsep=none]{caption}
+\usepackage{todonotes}
+\oddsidemargin 0in \evensidemargin 0in
+\topmargin -21pt \headsep 10pt
+\textheight 9.1in \textwidth 6.5in
+\brokenpenalty=10000
+\renewcommand{\baselinestretch}{1.0}
+\bibpunct{[}{]}{,}{s}{}{;}
+\bibliographystyle{unsrtnat}
+\usepackage{datetime}
+
+
+\begin{document}
+
+\begin{center}
+{\bf{ \large Homework Week 8.}}\\
+\makeatletter\@date\makeatother
+\end{center}
+
+\section{Exercise 1}
+To provide the student with exposure to Tensorflow we will provide the MNIST computer vision/ handwriting dataset which allows the training of a Neural Network for handwriting recognition. MNIST consists of images of handwritten digits, for example:
+\begin{figure}[H]
+\center
+\includegraphics[width=10cm]{numbers.png}
+\caption{Example images from MINST dataset.}
+\label{minst}
+\end{figure}
+
+The student will use the provided basic software to train the provided Neural Network and then predict the results of the following images:
+\begin{figure}[H]
+\center
+\includegraphics[width=10cm]{alternative_digits.png}
+\caption{Alternative digit set for prediction.}
+\label{alt}
+\end{figure}
+
+\section{Exercise 2}
+Follow the same process as in Exercise 1 but using a sample of the students own handwriting. Provide results for the accuracy of prediction for the new dataset and the images provided above.
+
+\section{What to hand in}
+Provide a Jupyter notebook containing the training and predictions, for both datasets, based on the provided Jupyter notebook.
+\end{document}
+
+ 

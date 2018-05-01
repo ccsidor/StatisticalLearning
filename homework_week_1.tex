@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage[verbose]{wrapfig}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+\usepackage[square, comma, sort&compress]{natbib}
+\usepackage{url}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\pagestyle{plain}
+\pagenumbering{arabic}
+\usepackage[font=small,labelformat=empty,labelsep=none]{caption}
+\usepackage{todonotes}
+\oddsidemargin 0in \evensidemargin 0in
+\topmargin -21pt \headsep 10pt
+\textheight 9.1in \textwidth 6.5in
+\brokenpenalty=10000
+\renewcommand{\baselinestretch}{1.0}
+\bibpunct{[}{]}{,}{s}{}{;}
+\bibliographystyle{unsrtnat}
+\usepackage{datetime}
+
+
+\begin{document}
+
+\begin{center}
+{\bf{ \large Homework Week 1.}}\\
+\makeatletter\@date\makeatother
+\end{center}
+
+\section{Exercise 1 (Repetition)}
+\begin{itemize}
+\item Highlight where diagonal and upper triangle are on matrices.
+\[
+D=\begin{bmatrix}
+    x_{11}       & x_{12} & x_{13} &  x_{14} \\
+    x_{21}       & x_{22} & x_{23} &  x_{24} \\
+    x_{31}       & x_{32} & x_{33} &  x_{34} \\
+    x_{41}       & x_{42} & x_{43} &  x_{44} 
+ \end{bmatrix},
+ UD=
+ \begin{bmatrix}
+    x_{11}       & x_{12} & x_{13} &  x_{14} \\
+    x_{21}       & x_{22} & x_{23} &  x_{24} \\
+    x_{31}       & x_{32} & x_{33} &  x_{34} \\
+    x_{41}       & x_{42} & x_{43} &  x_{44} 
+ \end{bmatrix}.
+\]
+
+\item Matching definition to picture of vector, square matrix, etc.
+\[
+M_1=
+\begin{bmatrix}
+    x_{11}       & x_{12} & x_{13} & x_{14}\\
+    x_{21}       & x_{22} & x_{23}  & x_{24}\\
+    x_{31}       & x_{32} & x_{33} & x_{34}
+ \end{bmatrix},
+M_2=\begin{bmatrix}
+    x_{11}  \\
+    x_{21} \\
+    x_{31} \\
+    x_{41} 
+ \end{bmatrix},
+M_3=\begin{bmatrix}
+    x_{11}       & x_{12} \\
+    x_{21}       & x_{22}  \\
+    x_{31}       & x_{32}  \\
+    x_{41}       & x_{42} \\
+    x_{51}       & x_{52} 
+ \end{bmatrix},
+M_4=\begin{bmatrix}
+    x_{11}       & x_{12} & x_{13} &  x_{14} &  x_{15}\\
+    x_{21}       & x_{22} & x_{23} &  x_{24} &  x_{25}
+ \end{bmatrix}.
+\]
+
+\item Pattern matching. Large matching of matrix a w/function to dimensions of outcome (including can’t be done). \\
+Using matrices from above, determine the following.
+\[ R_1=M_3\times M_4, R_2=M_4\times M_3, R_3=M_1\times M_1, R_4=M_1\times M_2, R_5=M_1+M_2.
+\]
+
+\item Given matrix $A$ and it’s inverse/identity find it’s identity/inverse \& determinant: fill in each part of matrix, can give partial credit.
+\[
+\begin{bmatrix}
+    1    & 0 & -2 \\
+    3    & 1 & -2 \\
+    -5   & 1 & 9
+ \end{bmatrix}
+ \times
+ \begin{bmatrix}
+    a_{11}       & a_{12} & a_{13} \\
+    a_{21}       & a_{22} & a_{23} \\
+    a_{31}       & a_{32} & a_{33} 
+ \end{bmatrix}
+=
+\begin{bmatrix}
+    1      & 0 & 0\\
+    0       & 1 & 0 \\
+    0      & 0 & 1 
+ \end{bmatrix}
+\]
+
+\item Vectors: compute norms of $V_1, V_2$, inner product of $V_1$ and  $V_2$, distance between $V_1$ and $V_2$: fill in each part of result, can give partial credit
+\[
+V_1=
+\begin{bmatrix}
+    1  \\
+    3.2 \\
+    -2.1 \\
+    0.4 
+ \end{bmatrix},
+V_1=
+\begin{bmatrix}
+    -10.3  \\
+    2..7 \\
+    4.1 \\
+    5.2 
+ \end{bmatrix},
+\]
+
+\end{itemize}
+
+\section{Exercise 2 (Extension)}
+\begin{itemize}
+\item Multiplication - commutative, associative: \\
+Given
+\[
+A=
+\begin{bmatrix}
+    1    & 0 & -2 \\
+    3    & 1 & -2 \\
+    -5   & 1 & 9
+ \end{bmatrix},
+ B=
+\begin{bmatrix}
+    2    & 9 & 8 \\
+    1    & 0 & 7 \\
+    -4   & 2 & 9
+ \end{bmatrix},
+C=
+\begin{bmatrix}
+    5    & -3 & 2 \\
+    2    & 1 & 5 \\
+    1   & -1 & 6
+ \end{bmatrix}.
+\]
+
+Find the following
+\[
+T_1=A\times B, T_2=B\times A, T_3=(A\times B)\times C, T_4=A\times (B\times C).
+\]
+
+
+\item Addition/subtraction - commutative, associative:\\
+Find the following
+\[
+S_1=A+B, S_2=B+ A, S_3=(A+B)+ C, S_4=A+ (B+ C).
+\]
+
+\item Learning orthogonal.\\
+Given
+\[
+O=
+\begin{bmatrix}
+0 &1 &0 &0\\
+0 &0 &0 &1\\
+1 &0 &0 &0\\
+0 &0 &1 &0
+ \end{bmatrix}.
+\]
+calculate the following:
+\[T_1=O\times O^{\mathrm{T}}, \det(O).
+\]
+
+%\item Learning positive definite
+
+\end{itemize}
+
+\end{document}
+
+ 

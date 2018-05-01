@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage[verbose]{wrapfig}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+\usepackage[square, comma, sort&compress]{natbib}
+\usepackage{url}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\pagestyle{plain}
+\pagenumbering{arabic}
+\usepackage[font=small,labelformat=empty,labelsep=none]{caption}
+\usepackage{todonotes}
+\oddsidemargin 0in \evensidemargin 0in
+\topmargin -21pt \headsep 10pt
+\textheight 9.1in \textwidth 6.5in
+\brokenpenalty=10000
+\renewcommand{\baselinestretch}{1.0}
+\bibpunct{[}{]}{,}{s}{}{;}
+\bibliographystyle{unsrtnat}
+\begin{document}
+
+\begin{center}
+	\bf \LARGE {Homework Week 4}
+\end{center}
+
+\section{Exercise 1}
+
+Consider different distances for continous data. Now loading the ionosphere data, and try to get the distance below:
+
+\begin{itemize}
+	\item { Eucledian Distance (L2 Distance)}
+	\item { Manhatan Distance (L1 Distance)}
+	\item { Minkowski Distance (with p = 0.1, 0.3, 0.5, 0.7)}
+	\item { Laplace Kernel }
+	\item{ Cosine Kernel } \\
+\end{itemize}
+\noindent \textbf{What to hand in: Script to do above and written argument.}
+
+\section{Exercise 2}
+
+Now we switch to categorical data, and would focus on binary data. Still on ionosphere data, notice that the first and last columns of the data are binary, we extract them and formulate a new data set, then:
+
+\begin{itemize}
+\item{ Establish the matrix}
+\item{ Manhatan Distance}
+\item{ Euclidean Distance }
+\item{ Canberra Distance }
+\item{ Minkowski Distance }
+\item{ Jaccard Kernel }
+\item{ Pearson Kernel }
+\item{ Cosine Kernel }
+\end{itemize}
+
+
+\noindent \textbf{What to hand in: Script to do above and written argument.}
+\end{document}
