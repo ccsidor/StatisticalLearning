@@ -1,0 +1,227 @@
+\documentclass[11pt]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage{float}
+\usepackage[verbose]{wrapfig}
+\usepackage[tbtags]{amsmath}
+\usepackage{amsmath,bm}
+\usepackage{amssymb}
+\usepackage[square, comma, sort&compress]{natbib}
+\usepackage{url}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{diagbox}
+\pagestyle{plain}
+\pagenumbering{arabic}
+\usepackage[font=small,labelformat=empty,labelsep=none]{caption}
+\usepackage{todonotes}
+\oddsidemargin 0in \evensidemargin 0in
+\topmargin -21pt \headsep 10pt
+\textheight 9.1in \textwidth 6.5in
+\brokenpenalty=10000
+\renewcommand{\baselinestretch}{1.0}
+\bibpunct{[}{]}{,}{s}{}{;}
+\bibliographystyle{unsrtnat}
+\begin{document}
+
+\begin{center}
+\bf \large Master of Science in Data Science. Week 4. Revision 0.9.
+\end{center}
+
+\section{Motivation}
+In Data Science we seek to find structure within our data sets. To do this we need to be able to recognize difference and similarities of elements within the data which, of course, requires that we can perform some sort of measure to do this. This week's lectures will introduce different ways that we can measure differences and will consider both continuous data sets in Section \ref{cd} and categorical data sets in Section \ref{cat}. Continuous data sets consist of data that can be measured on a continuum or scale, such as Real numbers, and categorical 
+datasets consist of types of data which may be divided into groups, such as age group, educational level etc. Metrics of interest in this course follow.
+
+\section{\bf Continuous Data}
+\label{cd}
+We refer to data that can be represented on a continuum or scale as Continuous data. This type of data can generally be represented numerically, inheriting the ability to subdivide up to the precision of the chosen measurement system.
+
+%data: cars, iris * reminder from week 1 about what continuous data is * What is a distance * why does it matter.
+
+%Def \& properties of:
+
+\subsection{Distance measures}
+Distance is a well understood concept that has been used for thousands of years and includes definitions for measuring distance that have evolved to incredible accuracy in modern times, although  units of measurement vary around the world. For a generalization of distance in more abstract areas, such as Data science, we use a mathematically defined metric that behaves as an analog of the ``real world'' measurement in that it follows a defined set of rules that allow us to understand ideas such as ``near'' or ``far'' in the data space.
+
+\subsubsection{Euclidean-$L2$}
+The most common metric used in continuous data is the Euclidean distance or $L2$ norm, and is generally the ``assumed'' definition. Often known as simply distance, with dense or continuous data this generaly the best choice to determine proximity.
+
+The Euclidean distance between two points defined as the length of the shortest path connecting them. For distance $D_{\mathrm{E}}$ and data sets $x,y$ it is defined as
+
+\begin{equation}
+D_{\mathrm{E}} = \sqrt{\sum_i^k (x_i-y_i)^2}.
+\end{equation}
+
+\subsubsection{Manhatan-$L1$}
+Another useful metric is the $L1$ norm or Manhattan distance which defines distance between two points as the sum of the absolute differences of their Cartesian coordinates. We can interpret this as considering it to be the total sum of the difference between the $x$-coordinates  and $y$-coordinates.
+
+Given two points $A$ and $B$ we find the Manhattan distance between them as the sum of the absolute $x$-axis and $y$Ðaxis differences. Mathematically the Manhattan distance $D_{\mathrm{M}}$ is given by
+
+\begin{equation}
+D_{\mathrm{M}} = \sum_i^k |x_i-y_i|.
+\end{equation}
+
+
+For example, given a plane with $p_1$ at $(x_1, y_1)$ and $p_2$ at $(x_2, y_2)$,
+$\mathrm{Manhattan ~distance} = |x_1-x_2| + |y_1-y_2|.$
+
+The Manhattan distance metric is also known as Manhattan length, rectilinear distance, $L1$ distance or norm, city block distance, MinkowskiÕs $L1$ distance, taxi-cab metric, or city block distance.
+
+\subsubsection{Minkowski}
+The Minkowski distance is a generalized metric based on the two initial cases of the Manhattan  and Euclidean distances.
+\begin{equation}
+D_{\mathrm{MKD}}(i,j) = \sqrt[\lambda]{\sum_{k=0}^{n-1} (y_{i,k}-y_{i,k})^\lambda}.
+\end{equation}
+
+In the equation, $D_{\mathrm{MKD}}$ is the Minkowski distance between the data element $i$ and $j$, $k$ the index of a variable, $n$ the total number of variables $y$ and $\lambda$ the order of the Minkowski metric. Although defined for any $\lambda > 0$, it is generally used for values 1, 2 and $\infty$ as seen below.
+
+{\bf Synonyms of Minkowski:}
+
+Different choice of $\lambda$ for the Minkowski distance/metric:
+\begin{itemize}
+\item $\lambda = 1$ is the Manhattan distance. Synonyms are L1-Norm, Taxicab or City-Block distance. For two vectors of ranked ordinal variables, the Manhattan distance is sometimes called Foot-ruler distance.
+\item $\lambda = 2$ is the Euclidean distance. Synonyms are L2-Norm or Ruler distance. For two vectors of ranked ordinal variables, the Euclidean distance is sometimes called Spear-man distance.
+\item $\lambda = \infty$ is the Max-norm. Synonyms are Supremum/maximum norm.
+\end{itemize}
+
+%* slide 5 of music pres * what is a kernel * why does it matter * visual 
+
+%Def \& properties of:
+
+\subsection{Kernels}
+For non-linear data problems we can use kernel functions as a similarity measure which allows us, for example, to use our toolkit of linear classifier to solve a non-linear problems. A specific example of where this is useful is when we want to use  methods like support vector machine (SVM). The kernel can be considered a weighting factor between data sequences that allows us to assign dissimilar weights to data points within those sequences depending on the function chosen. The difficulty with kernels is determining which function is optimal for comparing the sequences within the data but intuitively we expect that function to provide a useful similarity score. The kernel function can be applied to most of our data sets from integers and real valued vectors to trees provided that the function knows how to compare them.
+
+The Linear kernel, or dot-product, is perhaps the best known example and intuitively represents the length of the projection of one vector on another.
+
+The R package {\it{kernlab}} provides many of the methods described below.
+
+\subsubsection{Gaussian}
+For Data Science one of the most popular kernels is the Gaussian kernel. Intuitively we can visualize this as, for  two vectors, as a similarity measure that will diminish with the radius of $\sigma$. The radius parameter ``re-weights'' the distance between two objects.
+\begin{equation}
+k(x_i,x_j) =\exp{\left(\frac{-||x_i-x_j||^2}{\sigma^2}\right)}.
+\end{equation}
+where $||x_i-x_j||=((x_i1-x_j1)^2+(x_i2-x_j2)^2+...+(x_iD-x_jD)^2)^{\frac{1}{2}}$ is the Euclidian distance and $\sigma^2$ is the bandwidth of the kernel. The Gaussian kernel is a measure of similarity between $x_i$ and $x_j$ . It evaluates to 1 if the $x_i$ and $x_j$ are identical, and approaches 0 as $x_i$ and $x_j$ move further apart.
+
+\subsubsection{Laplace}
+Closely related to the Gaussian kernel is th he Laplace kernel is where the square term of the norm is removed. It is less sensitive for changes in the sigma parameter than the Gaussian Kernel. It is also a Radial Basis function kernel.
+\begin{equation}
+k(x_i,x_j) =\exp{\left(\frac{-||x_i-x_j||}{\sigma}\right)}.
+\end{equation}
+
+
+\subsubsection{Cosine}
+The Cosine kernel emphasizes the direction rather than magnitude between two sequences  $x_i$ and $x_j$ with a restricted range of $[0, 1]$. This results in two opposite vectors having distance 1, two orthogonal vectors $\frac{1}{2}$, two vectors of the same direction 0. The Cosine kernel is given by
+\begin{equation}
+k(x_i,x_j) =\frac{1}{\pi}\arccos{\left(\frac{<x_i, x_j>}{||x_i||~|||x_j||}\right)}.
+\end{equation}
+
+
+%** Talk about coercion between continuous and categorical and vice versa. * reminder from week 1 about what categorical data is.
+
+\section{\bf Categorical Data}
+\label{cat}
+Clearly many data sources that we are interested in analyzing do not provide continuous data. Where data is more naturally divided into groups we refer to it as Categorical data and this can include variables representing, for example, age group, educational level, race and sex. A common source of categorical data would be surveys, which we are all familiar with. For the following discussion we motivate the problem using two sets of binary data, but the techniques can be generalized to most categorical data.
+%data: survey data as example 
+
+%Def \& properties of:
+
+\subsection{Distances}
+For the following measures, given example binary data 
+$x_i: 1~0~1~0~1~1~...$ and $x_j: 0~1~1~0~0~0~...$
+
+\begin{tabular}{| c | c | c | c |}
+\hline
+  \backslashbox{j}{i} & 1 & 0 & sum\\
+\hline
+  1 & $a=i.j$ & $b=\bar{i}. j$ & $a+b$\\
+\hline
+  0 & $c=i.\bar{j}$ & $d=\bar{i}.\bar{j}$ & $c+d$\\
+\hline
+  sum & $a+c$ & $b+d$ & $n=a+b+c+d$\\
+\hline
+\end{tabular}
+
+\subsubsection{Manhattan (binary)}
+\begin{equation}
+\mathrm{d_M}(x_i,x_j) =b+c,
+\end{equation}
+count those element parts that are different,
+\begin{equation}
+\mathrm{d_M}=|1-0|+|0-1|+|1-0|+|1-0| + ... .
+\end{equation}
+
+\subsubsection{Euclidean (binary)}
+\begin{equation}
+\mathrm{d_E}(x_i,x_j) =\sqrt{b+c},
+\end{equation}
+In this case,
+\begin{equation}
+\mathrm{d_E}=\sqrt{|1-0|^2+|0-1|^2+|1-0|^2+|1-0|^2 + ...}.
+\end{equation}
+
+
+\subsubsection{Canberra}
+\begin{equation}
+\mathrm{d_{CAN}}(x_i,x_j) =\sum_{k=1}^n \frac{x_{ik}-x_{jk}}{|x_{ik}|+|x_{jk}|}= b+c.
+\end{equation}
+In this case,
+\begin{equation}
+\mathrm{d_{CAN}}=\frac{|1-0|}{1+0}+\frac{|0-1|}{0+1}+\frac{|1-0|}{1+0}+\frac{|1-0|}{1+0} + ....
+\end{equation}
+
+\subsubsection{Minkowski (binary)}
+\begin{equation}
+\mathrm{d_{MIN}}(x_i,x_j) =\left(\sum_{k=1}^n |x_{ik}-x_{jk}|^p\right)^{\frac{1}{p}}=(b+c)^{\frac{1}{p}}.
+\end{equation}
+In this case,
+\begin{equation}
+\mathrm{d_{MIN}}=\left(|1-0|+|0-1|+|1-0|+|1-0| + ...\right)^{\frac{1}{p}}.
+\end{equation}
+
+Def \& properties of:
+\subsection{Kernels}
+
+\subsubsection{Jaccard}
+We take the $x_i,~x_j$ as sets of elements.
+
+Then Jaccard coefficient,
+\begin{equation}
+\mathrm{S_J}(x_i,x_j) = \frac{|x_i\cap x_j|}{|x_i\cup x_j|}=\frac{a}{a+b+c},
+\end{equation}
+and Jaccard distance,
+\begin{equation}
+\mathrm{d_J}(x_i,x_j) = \frac{b+c}{a+b+c}=1-\mathrm{S_J}(x_i,x_j).
+\end{equation}
+
+\subsubsection{Pearson (chi squared)}
+This is defined as,
+\begin{equation}
+\chi^2=\frac{(ad+bc)^2.n}{(a+b)(c+d)(b+d)(a+c)}.
+\end{equation}
+Chi-square test is an important method to measure the relationship between two variables. Here, since we transform the two observations into a 2$\times$2 table, we will calculate the value of $\chi^2$ and the degree of freedom in this case is 1. From the Chi-squared table, we will be able to see if two observations are correlated given a certain $p$-value (usually 0.05).
+
+\subsubsection{Cosine (binary)}
+This is defined as,
+\begin{eqnarray}
+\mathrm{k_C}(x_i,x_j) &=& \frac{2}{\pi}\arccos\left(\frac{<x_i,x_j>}{||x_i||~||x_j||}\right),\\
+&=& \frac{2}{\pi}\arccos\left(\frac{a}{\sqrt{(a+b)(a+c)}}\right).
+\end{eqnarray}
+The Cosine kernel gives the distance with range $(0,1)$. When the two observations are orthogonal, the distance is 1, when the two are identical the distance is 0.
+
+\section{Code}
+R/Python coding in above measures and example with data sets. See file ``Week4CourseNote.r''.
+
+\section{\bf Homeworks}
+
+TBD. Give a few data sets, have them calculate dist \& similarities write up why they think the dist/sim differ mathematically matching distance/sim names to 
+math def code new distance/sim by hand.
+
+\section{\bf AIOS}
+Kernel gif visual.
+
+C.R.Sweet 04/25/2018
+
+\bibliography{dome}
+
+\end{document}
+
