@@ -32,14 +32,26 @@
 
 \begin{document}
 \title{Homework Week 2}
-
+\date{}
 \maketitle
 
 \section{Exercise 1}
 Consider the ORL-2 data set. There are 400 images of faces where each image has 648 dimensions (28 rows and 23 columns). Create a script to do the following:
 \begin{itemize}
 \item Select 9 faces at random (using a uniform distribution). 
-\item Create code to evenly divide up each image into a 4 by 4 cross section so that the image consists of 16 equally large chunks total (hint: consider each image as a separate matrix, this would be like creating 16 partitions of that image matrix)
+\item Create code to evenly divide up each image into a 4 by 4 cross section so that the image consists of 16 equally large chunks total like below (hint: consider each image as a separate matrix, this would be like creating 16 partitions of that image matrix) \begin{table}[h]
+\centering
+\begin{tabular}{|ll|ll|ll|ll|}\hline
+ &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  \\\hline
+ &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  \\ \hline
+ &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  \\ \hline
+ &  &  &  &  &  &  &  \\
+ &  &  &  &  &  &  &  \\\hline
+\end{tabular}
+\end{table}
 \item Using a uniform distribution, randomly select a chunk of the image
 \item Randomly paint the chunk either black or white. This can be accomplished like flipping a coin or rolling a die where heads or evens are white and tails or odds are black.
 \end{itemize}
@@ -62,3 +74,4 @@ Now consider the 10 audio tracks of Crosby howling. Each track is 20 seconds and
 \textbf{What to hand in: Script to do the above, distance matrix, visual distance matrix output, comments on distance matrix meaning.}
 
 \end{document}
+
