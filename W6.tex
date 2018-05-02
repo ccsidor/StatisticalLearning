@@ -38,7 +38,7 @@
 
 data: crabs, ionosphere
 
-\subsection{SVM \textbf{Jess}}
+\subsection{SVM}
 Ever look at data in Excel with more columns than the alphabet and wonder how you'll ever get through checking the significance of every variable? Fear no more, throw aside your boring regression model and don the exciting support vector machines (SVM) model! With the new and improved SVM, you can:
 \begin{itemize}
 \item Model and predict classes of data with a large number of attributes! *Kablam*
@@ -89,7 +89,7 @@ There are numerous kernels that can be used for classification. Two kernels that
 
 Another note of interest in SVM is that along with changing the kernel, you can also change how you calculate the bandwidth, $\delta$.  
 
-\subsection{LDA/QDA \textbf{Jess}}
+\subsection{LDA/QDA}
 
 Let's say you've plotted out your data on a few different dimensions and noticed that there's clear clusters. Trees or SVM might be able to handle this, but another tool to add to your arsenal is linear discriminant analysis, LDA.
 
@@ -106,26 +106,43 @@ $$\delta_{j}(x)=x^{T}\hat{b}^{x}_{j}+c^{x}_{j}$$
 
 Let's say you can still clearly see clusters in the data but know that there is no single line that you could place in the graphs to separate the clusters. Now we can use qda, quadratic discriminant analysis, to draw parabolas and more around our data to find the proper curvy boundary. 
 
-\subsection{RDA \textbf{Chris}}
-\begin{itemize}
-\item why
-\item math
-\item graph
-\item algorithm
-\end{itemize}
+\section{Regularized discriminant analysis (RDA)}
+Regularized discriminant analysis (RDA) is a compromise between LDA and QDA, which allows one to shrink the separate covariances of QDA toward a common variance as in LDA. This method is very similar in flavor to ridge regression. The regularized covariance matrices of each \begin{equation}
+\Sigma_k(\alpha)=\alpha\Sigma_k+(1-\alpha)\Sigma. 
+\end{equation}
 
-* 1 to 2 Data sets in R/Python as examples
+The quadratic discriminant function is defined using the shrunken covariance matrices $\Sigma_k(\alpha)$. The parameter $\alpha \in [0, 1]$ controls the complexity of the model. When $\alpha$ is one, RDA becomes QDA. While $\alpha$ is zero, RDA is equivalent to LDA. Therefore, the regularization factor $\alpha$ allows a continuum of models between LDA and QDA.
+
+\subsection{Class example}
+The following plot shows you how the error rate within training data and test data changes when the parameter $\alpha$ changes. It also shows you the trade off between model complexity and the fitting of the trading data.
+
+\begin{figure}[H]
+\center
+\includegraphics[width=15cm]{RDA_change_alpha_plot.png}
+\caption{Errors for RDA method with varying $\alpha$.$^{1}$}
+\label{dharmaweb1}
+\end{figure}
+
+Basically, values of $\alpha$ from 0 to 1 are applied using RDA. In every case the error rate within the training data is computed (lower green dotted line) and the error rate within a separate test data is also computed (upper red dotted line). You can see that when $\alpha$ becomes closer to 1, which means the model becomes more and more flexible - more like QDA, the error rate decreases in training data. If your model is more flexible you can fit the training data better, therefore, the error rate within the training set decreases. It is a different story with the test data. You can see with the test data, when you increase $\alpha$,  the error at first decreases. Then, if you make $\alpha$ too close to 1, the error rate increases. This shows you the trade-off between model complexity and the fitting of the training data.
+
+
+\subsection{Papers from Chris}
+Regularized Discriminant Analysis Author(s): Jerome H. Friedman
+Source: Journal of the American Statistical Association, Vol. 84, No. 405 (Mar., 1989), pp. 165- 175
+
+
+\subsection{Citations}
+[1] Graph from ``The Elements of Statistical Learning'', 2nd edition, by Trevor Hastie, Robert Tibshirani, and Jerome Friedman. NOTE: We will create  class code so that we can generate it ourselves, so placeholder only.
+
 
 \subsection{Week 6 - Homeworks}
 compare and run through lda/qda/rda/svm
-pick best kernel of bag of kernels
 more matching to math def
 compare outcomes via different metrics
 
 \subsection{Week 6 - AIOS}
-
+Dynamic generation of the above graph? Slider to set $\alpha$?
 
 * paper on QP instead of lecturing on it
 
 \end{document}
-
