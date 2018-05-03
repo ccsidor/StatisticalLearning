@@ -15,6 +15,7 @@
 \usepackage{amssymb,amsthm,mathtools,scrextend,stackengine}
 \usepackage[table,xcdraw]{xcolor} % clashes with tikz package
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage{url}
 \usepackage{wrapfig}
 \newenvironment{frcseries}{\fontfamily{frc}\selectfont}{}
 %% commands
@@ -38,14 +39,6 @@
 This week, chapter 6 in the ISLR book and chapter 3 in Intro to ML in Python would be handy read along guides to dimensionality reduction.
 
 * have R code for pca/nmf in yale data set
-
-\subsection{SVD \textbf{Chris}}
-\begin{itemize}
-\item why
-\item mathematical def
-\item algorithm
-\end{itemize}
-
 
 So you've finally made it big time and got your hands on some Big Data\textsuperscript{TM}. Great! But where do you even start? You suddenly have more variables than you can count and no way to possibly check the importance of every variable. While you could use regularization methods like LASSO to try to curb how many variables affect your model, another technique is to reduce the dimensionality of the data- that is to linearly combine variables into a new super variable. By doing this, you  can keep the most important features of your data set while still greatly reducing the number of variables you keep. One common method of dimensionality reduction is called principal component analysis- or PCA. This is very useful for facial recognition software. 
 
@@ -79,5 +72,70 @@ Let's say you do PCA, but end up needing nearly all of the $p$ principal compone
 Another important aspect of kernerlized PCA, is that it allows you reduce dimesionality of non-continuous data. That is, if your data $X$ has categorical, ordinal variables, then you need only define a kernel for such data and can then perform PCA.
 
 Non-Negative Matrix Factorization (NMF) works very similarly to PCA with one key difference. In PCA, we want our principal components to explain as much of the variation in the data as possible and this is accomplished by the eigenvectors being orthogonal.In NMF, we want our components to be positive (thus why it is \textbf{Non}-Negative Matrix Factorization). This difference may not seem important but it turns out that it makes NMF powerful at decomposing images and sounds that are overlayed/have multiple layers. In sound, this means NMF can decompose clips of multiple people speaking and have components that are easier to interpret than PCA. Check out the R code for this week to see how PCA and NMF differ in decomposing faces!
+
+\section{SVD}
+\subsection{Why SVD is important in Data Science}
+
+When it comes to data science, a common case is that we need to deal with matrices and linear algebra problems. (Think of the data as a matrix with rows as observations and columns as attributes.) \\
+
+A typical problem facing the Data Scientist is that the matrix is often of high dimension. It is natural to try to reduce the dimension of the matrix, also decompose the matrix (factorization) which will bring some nice properties when operating matrix calculation.\\ 
+
+Singular Value Decomposition is a method of matrix factorization in linear algebra. It can be seen as a generalization of eigenvalue decomposition, in which the raw matrix must be square.\\ 
+
+\subsection{Mathematics}
+
+If matrix A has a dimension of $ n \times p $  and  $ n>p $, then $A$ can be decomposed as the following form:\\
+
+\begin{equation}
+A = UDV^{T}
+\end{equation}
+Dimensions:\\
+$A:  n\times p$ \\
+$U:  n\times m$ \\
+$D:  n\times p$ \\
+$V:  p\times p$ \\
+
+\noindent Among which, the matrix have some nice properties.\\
+
+\noindent Both $U$ and $V$ are orthogonal matrix (yes, that means they are square matrix as well), so that:
+\newline
+\\
+\begin{eqnarray}
+UU^{T} &=& I, \\
+VV^{T} &=& I. 
+\end{eqnarray}
+
+$D$ is diagonal matrix, either square or not, with all the entries are the original matrix singular values, which are all non-negative. \\
+\begin{equation}
+DD^{T} = D^{2}.
+\end{equation}
+
+\subsection{SVD and PCA}
+
+Now we should bring up the interesting part of matrix operation: \\
+\begin{eqnarray}
+\nonumber AA^{T} &=&  UDV^{T}(UDV^{T})^{T}, \\
+\nonumber & = & UDV^{T}VD^{T}U^{T},  \\
+ & = & UD^{2}U^{T}.
+\end{eqnarray}
+
+Since $ AA^{T} $ is used to calculate the covariance matrix in PCA, by eigenvalue decomposition, all the columns of $U$ are the eigenvectors of $AA^{T}$, and all the entries on $ S^{2} $ diagonal are the eigenvalues of $AA^{T}$. \\
+
+\subsection{Applications of SVD}
+\noindent SVD is widely used in all kinds of machine learning, engineering, data preprocessing. One example currently used by researchers at Notre Dame is in the merging of multiple 3D point-clouds obtained by scanning Heritage sites, such as the Taj Mahal. To generate a transformation from one point-cloud to another requires the coordinates of at least 3 points that can be identified in each point-cloud. Generally it is advantageous to have more than 3 point to minimize errors arising from the measurement of each point. SVD provides a way of solving this over-defined problem and reduces to a least-mean-squares fit for the point set. In general, the least square algorithm of linear regression could be simplified when SVD is applied to it. \\
+
+\subsection{Intuitive interpretations}
+\begin{figure}[H]
+\center
+\includegraphics[width=8cm]{intuitive_svd.png}
+\caption{Intuitive interpretation of SVD.}
+\label{svd}
+\end{figure}
+Visualization of the SVD decomposition of a two-dimensional, real shearing matrix $M$. In the above diagram the blue disc represents the unit circle and the arrows the two canonical unit vectors. The action of $M$ on the unit circle transforms it to an ellipse. The SVD decomposition of $M$ separates the transformation into  $V^*$, and initial rotation, $\Sigma$ a scaling along the coordinate axes and $U$ a final rotation. The lengths of the semi-axes of the ellipse, $\sigma_1$ and $\sigma_2$, are the singular values of $M$ represented by component $\Sigma_{1,1}$ and $\Sigma_{2,2}$.$^1$
+
+
+\section{Citations}
+[1] \url{https://ipfs.io/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Singular_value_decomposition.html}
+
 
 \end{document}
